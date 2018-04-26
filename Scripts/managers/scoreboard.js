@@ -52,4 +52,3 @@ var managers;
     }());
     managers.ScoreBoard = ScoreBoard;
 })(managers || (managers = {}));
-//# sourceMappingURL=scoreboard.js.map

@@ -8,4 +8,3 @@ var managers;
     }());
     managers.Game = Game;
 })(managers || (managers = {}));
-//# sourceMappingURL=game.js.map

@@ -31,4 +31,3 @@ var managers;
     }());
     managers.Bullet = Bullet;
 })(managers || (managers = {}));
-//# sourceMappingURL=bullet.js.map

@@ -53,4 +53,3 @@ var scenes;
     }(objects.Scene));
     scenes.OverScene = OverScene;
 })(scenes || (scenes = {}));
-//# sourceMappingURL=over.js.map

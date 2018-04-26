@@ -54,4 +54,3 @@ var objects;
     }(objects.GameObject));
     objects.Cloud = Cloud;
 })(objects || (objects = {}));
-//# sourceMappingURL=cloud.js.map

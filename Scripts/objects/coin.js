@@ -36,4 +36,3 @@ var objects;
     }(objects.GameObject));
     objects.Coin = Coin;
 })(objects || (objects = {}));
-//# sourceMappingURL=coin.js.map

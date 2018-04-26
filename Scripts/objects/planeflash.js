@@ -28,4 +28,3 @@ var objects;
     }(objects.GameObject));
     objects.PlaneFlash = PlaneFlash;
 })(objects || (objects = {}));
-//# sourceMappingURL=planeflash.js.map

@@ -40,7 +40,7 @@ var scenes;
             for (var count = 0; count < this._cloudNum; count++) {
                 this._clouds[count] = new objects.Cloud();
             }
-            this._engineSound = createjs.Sound.play("engine");
+            this._engineSound = createjs.Sound.play("gameMusic");
             this._engineSound.loop = -1; // play forever
             this._engineSound.volume = 0.3;
             // create the scoreboard UI for the Scene
@@ -106,4 +106,3 @@ var scenes;
     }(objects.Scene));
     scenes.PlayScene = PlayScene;
 })(scenes || (scenes = {}));
-//# sourceMappingURL=play.js.map

@@ -29,4 +29,3 @@ var math;
     }(createjs.Point));
     math.Vec2 = Vec2;
 })(math || (math = {}));
-//# sourceMappingURL=vec2.js.map

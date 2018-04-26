@@ -48,4 +48,3 @@ var scenes;
     }(objects.Scene));
     scenes.StartScene = StartScene;
 })(scenes || (scenes = {}));
-//# sourceMappingURL=start.js.map

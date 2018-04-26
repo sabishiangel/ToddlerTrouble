@@ -7,4 +7,3 @@ var config;
         Scene[Scene["OVER"] = 2] = "OVER";
     })(Scene = config.Scene || (config.Scene = {}));
 })(config || (config = {}));
-//# sourceMappingURL=scene.js.map

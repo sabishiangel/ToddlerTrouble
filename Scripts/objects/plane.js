@@ -83,7 +83,7 @@ var objects;
                     if (managers.Game.bulletManger.CurrentBullet > 49) {
                         managers.Game.bulletManger.CurrentBullet = 0;
                     }
-                    createjs.Sound.play("bulletSound");
+                    createjs.Sound.play("bubbleSound");
                 }
             }
         };
@@ -91,4 +91,3 @@ var objects;
     }(objects.GameObject));
     objects.Plane = Plane;
 })(objects || (objects = {}));
-//# sourceMappingURL=plane.js.map

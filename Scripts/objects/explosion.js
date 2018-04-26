@@ -36,4 +36,3 @@ var objects;
     }(objects.GameObject));
     objects.Explosion = Explosion;
 })(objects || (objects = {}));
-//# sourceMappingURL=explosion.js.map

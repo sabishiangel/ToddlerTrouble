@@ -13,7 +13,7 @@ var managers;
                     switch (object2.name) {
                         case "coin":
                             if ((object2.alpha != 0) && (object1.alpha != 0)) {
-                                createjs.Sound.play("coin");
+                                createjs.Sound.play("cupcakeSound");
                                 managers.Game.scoreBoard.Score += 100;
                                 object2.alpha = 0;
                                 // add a life power up
@@ -62,4 +62,3 @@ var managers;
     }());
     managers.Collision = Collision;
 })(managers || (managers = {}));
-//# sourceMappingURL=collision.js.map

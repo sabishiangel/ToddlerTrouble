@@ -97,11 +97,17 @@
   assetManifest = [
     { id: "textureAtlas", src: "./Assets/sprites/textureAtlas.png" },
     { id: "ocean", src: "./Assets/images/ocean.gif" },
-    { id: "engine", src: "./Assets/audio/engine.ogg" },
-    { id: "coin", src: "./Assets/audio/coin.wav" },
+    { id: "gameMusic", src: "./Assets/audio/ToddlerTroubleAudio/gameMusic.mp3" },
+    { id: "cupcakeSound", src: "./Assets/audio/ToddlerTroubleAudio/cupcakeSound.mp3" },
     { id: "life", src: "./Assets/audio/life.wav" },
     { id: "explosion", src: "./Assets/audio/explosion.mp3" },
-    { id: "bulletSound", src: "./Assets/audio/bullet.mp3" }
+    { id: "bubbleSound", src: "./Assets/audio/ToddlerTroubleAudio/bubbleShot.mp3" },
+    { id: "mira", src: "./Assets/images/ToddlerTroubleImages/Characters/MiraTop.png" }, 
+    { id: "restartBtn", src: "./Assets/images/ToddlerTroubleImages/Buttons/Try1.png" },
+    { id: "bubble", src: "./Assets/images/ToddlerTroubleImages/Ammo/bubble.png" }, 
+    { id: "enemy1", src: "./Assets/images/ToddlerTroubleImages/Characters/AniBaby1.png" },   
+    { id: "enemy2", src: "./Assets/images/ToddlerTroubleImages/Characters/AniBaby2.png" },   
+    { id: "cupcake", src: "./Assets/images/ToddlerTroubleImages/cupcake.png" }   
   ];
 
   // preloads assets

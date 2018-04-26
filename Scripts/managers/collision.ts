@@ -13,7 +13,7 @@ module managers {
             case "coin":
               if ((object2.alpha != 0) && (object1.alpha != 0)) {
 
-                createjs.Sound.play("coin");
+                createjs.Sound.play("cupcakeSound");
                 managers.Game.scoreBoard.Score += 100;
                 object2.alpha = 0;
 

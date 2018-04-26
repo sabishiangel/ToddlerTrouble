@@ -52,7 +52,7 @@ module scenes {
         this._clouds[count] = new objects.Cloud();
       }
 
-      this._engineSound = createjs.Sound.play("engine");
+      this._engineSound = createjs.Sound.play("gameMusic");
       this._engineSound.loop = -1; // play forever
       this._engineSound.volume = 0.3;
 

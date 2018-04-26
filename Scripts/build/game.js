@@ -342,7 +342,7 @@ var managers;
                     switch (object2.name) {
                         case "coin":
                             if ((object2.alpha != 0) && (object1.alpha != 0)) {
-                                createjs.Sound.play("coin");
+                                createjs.Sound.play("cupcakeSound");
                                 managers.Game.scoreBoard.Score += 100;
                                 object2.alpha = 0;
                                 // add a life power up
@@ -623,7 +623,7 @@ var objects;
                     if (managers.Game.bulletManger.CurrentBullet > 49) {
                         managers.Game.bulletManger.CurrentBullet = 0;
                     }
-                    createjs.Sound.play("bulletSound");
+                    createjs.Sound.play("bubbleSound");
                 }
             }
         };
@@ -846,7 +846,7 @@ var scenes;
             for (var count = 0; count < this._cloudNum; count++) {
                 this._clouds[count] = new objects.Cloud();
             }
-            this._engineSound = createjs.Sound.play("engine");
+            this._engineSound = createjs.Sound.play("gameMusic");
             this._engineSound.loop = -1; // play forever
             this._engineSound.volume = 0.3;
             // create the scoreboard UI for the Scene
@@ -1068,11 +1068,17 @@ var scenes;
     assetManifest = [
         { id: "textureAtlas", src: "./Assets/sprites/textureAtlas.png" },
         { id: "ocean", src: "./Assets/images/ocean.gif" },
-        { id: "engine", src: "./Assets/audio/engine.ogg" },
-        { id: "coin", src: "./Assets/audio/coin.wav" },
+        { id: "gameMusic", src: "./Assets/audio/ToddlerTroubleAudio/gameMusic.mp3" },
+        { id: "cupcakeSound", src: "./Assets/audio/ToddlerTroubleAudio/cupcakeSound.mp3" },
         { id: "life", src: "./Assets/audio/life.wav" },
         { id: "explosion", src: "./Assets/audio/explosion.mp3" },
-        { id: "bulletSound", src: "./Assets/audio/bullet.mp3" }
+        { id: "bubbleSound", src: "./Assets/audio/ToddlerTroubleAudio/bubbleShot.mp3" },
+        { id: "mira", src: "./Assets/images/ToddlerTroubleImages/Characters/MiraTop.png" },
+        { id: "restartBtn", src: "./Assets/images/ToddlerTroubleImages/Buttons/Try1.png" },
+        { id: "bubble", src: "./Assets/images/ToddlerTroubleImages/Ammo/bubble.png" },
+        { id: "enemy1", src: "./Assets/images/ToddlerTroubleImages/Characters/AniBaby1.png" },
+        { id: "enemy2", src: "./Assets/images/ToddlerTroubleImages/Characters/AniBaby2.png" },
+        { id: "cupcake", src: "./Assets/images/ToddlerTroubleImages/cupcake.png" }
     ];
     // preloads assets
     function Init() {

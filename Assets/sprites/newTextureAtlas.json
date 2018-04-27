@@ -1,0 +1,45 @@
+{
+
+"images": [
+    "newTextureAtlas.png"
+],
+
+"framerate": 20,
+"frames": [
+    [1, 1, 25, 25, 0, 0, 0],
+    [28, 1, 40, 47, 0, 0, 0],
+    [70, 1, 60, 69, 0, 0, 0],
+    [132, 1, 60, 69, 0, 0, 0],
+    [194, 1, 70, 82, 0, 0, 0],
+    [266, 1, 182, 99, 0, -1, 0],
+    [1, 102, 183, 98, 0, 0, 0],
+    [186, 102, 183, 98, 0, -1, 0],
+    [1, 202, 182, 99, 0, -4, -1],
+    [185, 202, 183, 99, 0, -1, 0],
+    [1, 303, 191, 98, 0, -7, -1],
+    [194, 303, 205, 98, 0, 0, 0],
+    [1, 403, 305, 177, 0, -2, -6]
+],
+
+"animations": {
+    "bubble": { "frames": [0] },
+    "cupcake": { "frames": [1] },
+    "AniBaby2": { "frames": [2] },
+    "AniBaby1": { "frames": [3] },
+    "MiraTop": { "frames": [4] },
+    "h2p1": { "frames": [5] },
+    "Select1": { "frames": [6] },
+    "Main1": { "frames": [7] },
+    "Play1": { "frames": [8] },
+    "Back1": { "frames": [9] },
+    "opt1": { "frames": [10] },
+    "Try1": { "frames": [11] },
+    "TodTroLogo": { "frames": [12] }
+},
+
+"texturepacker": [
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:2cdfe2bf4c42c5346a5ee69c257d82c6:8ad21f37c432362226097acc4f61ccde:e041f2265db373721e999743a2d3000d$",
+        "Created with TexturePacker (https://www.codeandweb.com/texturepacker) for EaselJS"
+]
+
+}

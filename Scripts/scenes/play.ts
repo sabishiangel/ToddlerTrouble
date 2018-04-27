@@ -52,7 +52,7 @@ module scenes {
       // this._cloudNum = 2;
       // loop and add each cloud to the array
       // for (let count = 0; count < this._cloudNum; count++) {
-        // this._clouds[count] = new objects.Cloud();
+      // this._clouds[count] = new objects.Cloud();
       // }
 
       this._engineSound = createjs.Sound.play("gameMusic");
@@ -86,17 +86,20 @@ module scenes {
       // managers.Collision.Check(this._mira, this._coin);
 
       // this._clouds.forEach(cloud => {
-        // cloud.Update();
-        // check collision between plane and current cloud
-        // managers.Collision.Check(this._mira, cloud);
+      // cloud.Update();
+      // check collision between plane and current cloud
+      // managers.Collision.Check(this._mira, cloud);
       // });
+
+      managers.Collision.Check(this._mira, this._enemy1);
+
 
       this._bulletManager.Bullets.forEach(bullet => {
         managers.Collision.Check(bullet, this._enemy1);
       });
 
       // if lives fall below zero switch scenes to the game over scene
-      if(this._scoreBoard.Lives <= 0) {
+      if (this._scoreBoard.Lives <= 0) {
         this._engineSound.stop();
         managers.Game.currentScene = config.Scene.OVER;
       }
@@ -128,7 +131,7 @@ module scenes {
       // add clouds to the scene
 
       // this._clouds.forEach(cloud => {
-        // this.addChild(cloud);
+      // this.addChild(cloud);
       // });
 
       // add scoreboard labels to the scene

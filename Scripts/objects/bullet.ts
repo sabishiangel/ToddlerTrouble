@@ -3,7 +3,7 @@ module objects {
     // private instance variables
 
     // public properties
-    public rotation;
+    public rotationRad;
 
     // constructors
     constructor() {
@@ -37,8 +37,8 @@ module objects {
     }
 
     public Move():void {
-      this.x += Math.cos(this.rotation) * 10;
-      this.y += Math.sin(this.rotation) * 10;
+      this.x += Math.cos(this.rotationRad) * 10;
+      this.y += Math.sin(this.rotationRad) * 10;
     }
   }
 }

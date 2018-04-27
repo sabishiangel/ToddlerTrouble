@@ -54,6 +54,26 @@ module managers {
                 object2.Reset();
               }
               break;
+            case "enemy1":
+              if (object1.name == "bubble") {
+                createjs.Sound.play("explosion");
+                // let explosion = new objects.Explosion("explosion");
+                // explosion.x = object2.x;
+                // explosion.y = object2.y;
+                // managers.Game.currentSceneObject.addChild(explosion);
+                managers.Game.scoreBoard.Score += 200;
+                object2.Reset();
+              }
+              else if (object1.name == "mira") {
+                createjs.Sound.play("explosion");
+                // let explosion = new objects.Explosion("explosion");
+                // explosion.x = object2.x;
+                // explosion.y = object2.y;
+                // managers.Game.currentSceneObject.addChild(explosion);
+                managers.Game.scoreBoard.Lives -= 1;
+                object2.Reset();
+              }
+              break;
           }
         }
       }

@@ -1,10 +1,10 @@
 module scenes {
-  export class StartScene extends objects.Scene {
+  export class TutorialScene extends objects.Scene {
     // Private Instance Variables
     private _welcomeLabel: createjs.Bitmap;
     private _startButton: objects.Button;
-    private _tutorialButton: objects.Button;    
     private _nursery: createjs.Bitmap;
+    private _instructions: objects.Label;
 
 
     // Public Properties
@@ -18,11 +18,7 @@ module scenes {
 
     // Private Mathods
     private _startButtonClick():void {
-      managers.Game.currentScene = config.Scene.PLAY;
-    }
-
-    private _tutorialButtonClick():void {
-      managers.Game.currentScene = config.Scene.TUT;
+      managers.Game.currentScene = config.Scene.START;
     }
 
 
@@ -36,14 +32,14 @@ module scenes {
       this._nursery.scaleX = 640 / this._nursery.getBounds().width;
       this._nursery.scaleY = 480 / this._nursery.getBounds().height;
 
-      this._welcomeLabel = new objects.GameObject("logo");
+      this._welcomeLabel = new objects.GameObject("tutorial");
       this._welcomeLabel.x = 320;
-      this._welcomeLabel.y = 100;
+      this._welcomeLabel.y = 90;
+
+      this._instructions = new objects.Label("Using the arrow keys to move and the mouse \n to aim (click to shoot, or use the spacebar), \ndo your job and calm those babies!", "20px", "Arial", "#222222", 700, 200, true)
       
 
-      this._startButton = new objects.Button("startButton", 320, 260);
-      this._tutorialButton = new objects.Button("tutorial", 320, 380);
-      
+      this._startButton = new objects.Button("back", 100, 400);
       this.Main();
     }
 
@@ -61,9 +57,9 @@ module scenes {
 
       // add the startButton to the scene
        this.addChild(this._startButton);
-       this.addChild(this._tutorialButton);
+
+       this.addChild(this._instructions);
        
-       this._tutorialButton.on("click", this._tutorialButtonClick);
 
        this._startButton.on("click", this._startButtonClick);
     }

@@ -19,7 +19,8 @@ module objects {
                 this.regX = this.getMeasuredWidth() * 0.5;
                 this.regY = this.getMeasuredHeight() * 0.5;
             }
-
+            
+            this.shadow = new createjs.Shadow("#000000", 3, 3, 10);
             this.x = x;
             this.y = y;
         }

@@ -4,6 +4,7 @@ module config {
     PLAY,
     LVL2,
     LVL3,
+    TUT,
     OVER
   }
 }

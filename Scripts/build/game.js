@@ -37,7 +37,8 @@ var config;
         Scene[Scene["PLAY"] = 1] = "PLAY";
         Scene[Scene["LVL2"] = 2] = "LVL2";
         Scene[Scene["LVL3"] = 3] = "LVL3";
-        Scene[Scene["OVER"] = 4] = "OVER";
+        Scene[Scene["TUT"] = 4] = "TUT";
+        Scene[Scene["OVER"] = 5] = "OVER";
     })(Scene = config.Scene || (config.Scene = {}));
 })(config || (config = {}));
 var managers;
@@ -66,6 +67,7 @@ var objects;
                 _this.regX = _this.getMeasuredWidth() * 0.5;
                 _this.regY = _this.getMeasuredHeight() * 0.5;
             }
+            _this.shadow = new createjs.Shadow("#000000", 3, 3, 10);
             _this.x = x;
             _this.y = y;
             return _this;
@@ -868,7 +870,7 @@ var scenes;
             this._nursery = new createjs.Bitmap(managers.Game.assetManager.getResult("nursery"));
             this._nursery.scaleX = 640 / this._nursery.getBounds().width;
             this._nursery.scaleY = 480 / this._nursery.getBounds().height;
-            this._labelLevel = new objects.Label("Level 1", "32px", "Arial", "#FF0000", 250, 50, false);
+            this._labelLevel = new objects.Label("Level 1", "30px", "Arial", "#FF0000", 250, 50, false);
             this._mira = new objects.Mira();
             managers.Game.mira = this._mira;
             // make a reference to the bullet manager in the game manager
@@ -901,6 +903,7 @@ var scenes;
             this._enemy1.Update();
             this._bulletManager.Update();
             if (this._scoreBoard.Score == 2000) {
+                this._engineSound.stop();
                 managers.Game.currentScene = config.Scene.LVL2;
                 console.log("switch to lvl 2");
             }
@@ -980,6 +983,9 @@ var scenes;
         StartScene.prototype._startButtonClick = function () {
             managers.Game.currentScene = config.Scene.PLAY;
         };
+        StartScene.prototype._tutorialButtonClick = function () {
+            managers.Game.currentScene = config.Scene.TUT;
+        };
         // Public Methods
         // Initialize Game Variables and objects
         StartScene.prototype.Start = function () {
@@ -988,8 +994,9 @@ var scenes;
             this._nursery.scaleY = 480 / this._nursery.getBounds().height;
             this._welcomeLabel = new objects.GameObject("logo");
             this._welcomeLabel.x = 320;
-            this._welcomeLabel.y = 180;
-            this._startButton = new objects.Button("startButton", 320, 360);
+            this._welcomeLabel.y = 100;
+            this._startButton = new objects.Button("startButton", 320, 260);
+            this._tutorialButton = new objects.Button("tutorial", 320, 380);
             this.Main();
         };
         StartScene.prototype.Update = function () {
@@ -1003,6 +1010,8 @@ var scenes;
             this.addChild(this._welcomeLabel);
             // add the startButton to the scene
             this.addChild(this._startButton);
+            this.addChild(this._tutorialButton);
+            this._tutorialButton.on("click", this._tutorialButtonClick);
             this._startButton.on("click", this._startButtonClick);
         };
         return StartScene;
@@ -1138,6 +1147,8 @@ var scenes;
         { id: "enemy2", src: "./Assets/images/ToddlerTroubleImages/Characters/AniBaby2.png" },
         { id: "cupcake", src: "./Assets/images/ToddlerTroubleImages/cupcake.png" },
         { id: "startButton", src: "./Assets/images/ToddlerTroubleImages/Buttons/Play1.png" },
+        { id: "tutorial", src: "./Assets/images/ToddlerTroubleImages/Buttons/h2p1.png" },
+        { id: "back", src: "./Assets/images/ToddlerTroubleImages/Buttons/Back1.png" },
         { id: "nursery", src: "./Assets/images/ToddlerTroubleImages/Backgrounds/Nursery.png" },
         { id: "endScene", src: "./Assets/images/ToddlerTroubleImages/Backgrounds/endScene.png" },
         { id: "logo", src: "./Assets/images/ToddlerTroubleImages/TodTroLogo.png" },
@@ -1209,6 +1220,9 @@ var scenes;
                 break;
             case config.Scene.LVL3:
                 currentScene = new scenes.PlayScene3();
+                break;
+            case config.Scene.TUT:
+                currentScene = new scenes.TutorialScene();
                 break;
         }
         currentState = managers.Game.currentScene;
@@ -1504,6 +1518,7 @@ var scenes;
             this._enemy2.Update();
             this._bulletManager.Update();
             if (this._scoreBoard.Score == 4000) {
+                this._engineSound.stop();
                 managers.Game.currentScene = config.Scene.LVL3;
             }
             // this._coin.x = this._island.x;
@@ -1691,5 +1706,51 @@ var scenes;
         return PlayScene3;
     }(objects.Scene));
     scenes.PlayScene3 = PlayScene3;
+})(scenes || (scenes = {}));
+var scenes;
+(function (scenes) {
+    var TutorialScene = /** @class */ (function (_super) {
+        __extends(TutorialScene, _super);
+        // Public Properties
+        // Constructor
+        function TutorialScene() {
+            var _this = _super.call(this) || this;
+            _this.Start();
+            return _this;
+        }
+        // Private Mathods
+        TutorialScene.prototype._startButtonClick = function () {
+            managers.Game.currentScene = config.Scene.START;
+        };
+        // Public Methods
+        // Initialize Game Variables and objects
+        TutorialScene.prototype.Start = function () {
+            this._nursery = new createjs.Bitmap(managers.Game.assetManager.getResult("nursery"));
+            this._nursery.scaleX = 640 / this._nursery.getBounds().width;
+            this._nursery.scaleY = 480 / this._nursery.getBounds().height;
+            this._welcomeLabel = new objects.GameObject("tutorial");
+            this._welcomeLabel.x = 320;
+            this._welcomeLabel.y = 90;
+            this._instructions = new objects.Label("Using the arrow keys to move and the mouse \n to aim (click to shoot, or use the spacebar), \ndo your job and calm those babies!", "20px", "Arial", "#222222", 700, 200, true);
+            this._startButton = new objects.Button("back", 100, 400);
+            this.Main();
+        };
+        TutorialScene.prototype.Update = function () {
+            // this._ocean.Update();
+        };
+        // This is where the fun happens
+        TutorialScene.prototype.Main = function () {
+            // add the ocean object
+            this.addChild(this._nursery);
+            // add the welcome label to the scene
+            this.addChild(this._welcomeLabel);
+            // add the startButton to the scene
+            this.addChild(this._startButton);
+            this.addChild(this._instructions);
+            this._startButton.on("click", this._startButtonClick);
+        };
+        return TutorialScene;
+    }(objects.Scene));
+    scenes.TutorialScene = TutorialScene;
 })(scenes || (scenes = {}));
 //# sourceMappingURL=game.js.map

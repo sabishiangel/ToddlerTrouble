@@ -33,7 +33,7 @@ module scenes {
       this._nursery = new createjs.Bitmap(managers.Game.assetManager.getResult("nursery"));
       this._nursery.scaleX = 640 / this._nursery.getBounds().width;
       this._nursery.scaleY = 480 / this._nursery.getBounds().height;
-      this._labelLevel = new objects.Label("Level 1", "32px", "Arial", "#FF0000", 250, 50, false);
+      this._labelLevel = new objects.Label("Level 1", "30px", "Arial", "#FF0000", 250, 50, false);
 
       this._mira = new objects.Mira();
       managers.Game.mira = this._mira;
@@ -78,6 +78,7 @@ module scenes {
       this._bulletManager.Update();
 
       if(this._scoreBoard.Score == 2000){
+        this._engineSound.stop();
         managers.Game.currentScene = config.Scene.LVL2;
         console.log("switch to lvl 2");
       }

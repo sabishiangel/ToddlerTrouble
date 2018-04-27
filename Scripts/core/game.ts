@@ -111,6 +111,8 @@
     { id: "enemy2", src: "./Assets/images/ToddlerTroubleImages/Characters/AniBaby2.png" },
     { id: "cupcake", src: "./Assets/images/ToddlerTroubleImages/cupcake.png" },
     { id: "startButton", src: "./Assets/images/ToddlerTroubleImages/Buttons/Play1.png" },
+    { id: "tutorial", src: "./Assets/images/ToddlerTroubleImages/Buttons/h2p1.png" },
+    { id: "back", src: "./Assets/images/ToddlerTroubleImages/Buttons/Back1.png" },
     { id: "nursery", src: "./Assets/images/ToddlerTroubleImages/Backgrounds/Nursery.png" },
     { id: "endScene", src: "./Assets/images/ToddlerTroubleImages/Backgrounds/endScene.png" },
     { id: "logo", src: "./Assets/images/ToddlerTroubleImages/TodTroLogo.png" },
@@ -200,6 +202,9 @@
         break;
       case config.Scene.LVL3:
         currentScene = new scenes.PlayScene3();
+        break;
+      case config.Scene.TUT:
+        currentScene = new scenes.TutorialScene();
         break;
     }
 

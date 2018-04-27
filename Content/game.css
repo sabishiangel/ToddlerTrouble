@@ -7,6 +7,14 @@
 
 }
 
+@font-face {
+  font-family: 'Cheri';
+  src: url('../Assets/fonts/CHERI___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
 
 #canvas {
   border: 1px black dotted

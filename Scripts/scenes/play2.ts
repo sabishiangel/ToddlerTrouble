@@ -84,6 +84,7 @@ module scenes {
       this._bulletManager.Update();
 
       if(this._scoreBoard.Score == 4000){
+        this._engineSound.stop();
         managers.Game.currentScene = config.Scene.LVL3;
       }
 

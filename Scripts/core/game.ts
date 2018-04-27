@@ -105,6 +105,7 @@
     { id: "bubbleSound", src: "./Assets/audio/ToddlerTroubleAudio/bubbleShot.mp3" },
     { id: "mira", src: "./Assets/images/ToddlerTroubleImages/Characters/MiraTop.png" }, 
     { id: "restartBtn", src: "./Assets/images/ToddlerTroubleImages/Buttons/Try1.png" },
+    { id: "mainBtn", src: "./Assets/images/ToddlerTroubleImages/Buttons/Main1.png" },
     { id: "bubble", src: "./Assets/images/ToddlerTroubleImages/Ammo/bubble.png" }, 
     { id: "enemy1", src: "./Assets/images/ToddlerTroubleImages/Characters/AniBaby1.png" },   
     { id: "enemy2", src: "./Assets/images/ToddlerTroubleImages/Characters/AniBaby2.png" },   

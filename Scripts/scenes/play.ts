@@ -137,6 +137,13 @@ module scenes {
       // add scoreboard labels to the scene
       this.addChild(this._scoreBoard.LivesLabel);
       this.addChild(this._scoreBoard.ScoreLabel);
+
+      //click to fire
+      this._nursery.addEventListener("click", function(event) { 
+        managers.Game.keyboardManager.fire = true; 
+        setTimeout(function(){(managers.Game.keyboardManager.fire = false)}, 150);
+         
+      });
     }
   }
 }

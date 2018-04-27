@@ -3,6 +3,7 @@ module scenes {
     // Private Instance Variables
     private _overLabel: objects.Label;
     private _restartButton: objects.Button;
+    private _mainButton: objects.Button;    
     //private _ocean: objects.Ocean;
     private _loseScreen: createjs.Bitmap;
 
@@ -22,6 +23,10 @@ module scenes {
       managers.Game.currentScene = config.Scene.PLAY;
     }
 
+    private _mainButtonClick():void {
+      managers.Game.currentScene = config.Scene.START;
+    }
+
 
     // Public Methods
 
@@ -31,7 +36,8 @@ module scenes {
       this._loseScreen = new createjs.Bitmap(managers.Game.assetManager.getResult("endScene"));
       this._loseScreen.scaleX = 640 / this._loseScreen.getBounds().width;
       this._loseScreen.scaleY = 480 / this._loseScreen.getBounds().height;
-      this._restartButton = new objects.Button("restartBtn", 320, 400);
+      this._restartButton = new objects.Button("restartBtn", 520, 400);
+      this._mainButton = new objects.Button("mainBtn", 120, 400);      
       this._scoreboard = new managers.ScoreBoard();
 
       this.Main();
@@ -52,12 +58,16 @@ module scenes {
       // add the backButton to the scene
       this.addChild(this._restartButton);
 
+      this.addChild(this._mainButton);
+      
+
       // add scoreboard to the scene
       this.addChild(this._scoreboard.HighScoreLabel);
       this._scoreboard.HighScore = managers.Game.HighScore;
 
       // event listeners
       this._restartButton.on("click", this._restartButtonClick);
+      this._mainButton.on("click", this._mainButtonClick);
     }
   }
 }

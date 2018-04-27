@@ -789,19 +789,22 @@ var scenes;
         // Public Methods
         // Initialize Game Variables and objects
         OverScene.prototype.Start = function () {
-            this._ocean = new objects.Ocean();
+            //this._ocean = new objects.Ocean();
+            this._loseScreen = new createjs.Bitmap(managers.Game.assetManager.getResult("endScene"));
+            this._loseScreen.scaleX = 640 / this._loseScreen.getBounds().width;
+            this._loseScreen.scaleY = 480 / this._loseScreen.getBounds().height;
             this._overLabel = new objects.Label("Game Over", "60px", "Dock51", "#FFFF00", 320, 140, true);
-            this._restartButton = new objects.Button("restartButton", 320, 340);
+            this._restartButton = new objects.Button("restartBtn", 320, 340);
             this._scoreboard = new managers.ScoreBoard();
             this.Main();
         };
         OverScene.prototype.Update = function () {
-            this._ocean.Update();
+            //this._ocean.Update();
         };
         // This is where the fun happens
         OverScene.prototype.Main = function () {
             // add the ocean object
-            this.addChild(this._ocean);
+            this.addChild(this._loseScreen);
             // add the welcome label to the scene
             this.addChild(this._overLabel);
             // add the backButton to the scene

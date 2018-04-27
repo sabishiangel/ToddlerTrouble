@@ -362,20 +362,29 @@ var managers;
                                 var explosion = new objects.Explosion("explosion");
                                 explosion.x = object1.x;
                                 explosion.y = object1.y;
-                                managers.Game.Object.addChild(explosion);
+                                //managers.Game.Object.addChild(explosion);
                                 // object1.alpha = 0; // make the plane object invisible
                                 // managers.Game.plane.planeFlash.alpha = 1;
                                 // managers.Game.plane.planeFlash.gotoAndPlay("planeflash");
                             }
                             break;
-                        case "enemy":
-                            if (object2.alpha != 0) {
+                        case "enemy2":
+                            if (object1.name == "bubble") {
                                 createjs.Sound.play("explosion");
-                                var explosion = new objects.Explosion("explosion");
-                                explosion.x = object2.x;
-                                explosion.y = object2.y;
-                                managers.Game.currentSceneObject.addChild(explosion);
-                                managers.Game.scoreBoard.Score += 200;
+                                // let explosion = new objects.Explosion("explosion");
+                                // explosion.x = object2.x;
+                                // explosion.y = object2.y;
+                                // managers.Game.currentSceneObject.addChild(explosion);
+                                managers.Game.scoreBoard.Score += 300;
+                                object2.Reset();
+                            }
+                            else if (object1.name == "mira") {
+                                createjs.Sound.play("explosion");
+                                // let explosion = new objects.Explosion("explosion");
+                                // explosion.x = object2.x;
+                                // explosion.y = object2.y;
+                                // managers.Game.currentSceneObject.addChild(explosion);
+                                managers.Game.scoreBoard.Lives -= 2;
                                 object2.Reset();
                             }
                             break;
@@ -847,6 +856,8 @@ var scenes;
         // Constructor
         function PlayScene() {
             var _this = _super.call(this) || this;
+            _this.lvl2Score = 2000;
+            _this.lvl3Score = 3000;
             _this.Start();
             return _this;
         }
@@ -857,13 +868,18 @@ var scenes;
             this._nursery = new createjs.Bitmap(managers.Game.assetManager.getResult("nursery"));
             this._nursery.scaleX = 640 / this._nursery.getBounds().width;
             this._nursery.scaleY = 480 / this._nursery.getBounds().height;
+            //mira
             this._mira = new objects.Mira();
             managers.Game.mira = this._mira;
             // make a reference to the bullet manager in the game manager
             this._bulletManager = new managers.Bullet();
             managers.Game.bulletManger = this._bulletManager;
-            // create an enemy object
+            // create enemy objects
             this._enemy1 = new objects.Enemy1();
+            this._enemy2 = new objects.Enemy1();
+            this._enemy3 = new objects.Enemy2();
+            this._lvl2 = new objects.Label("Level 2", "35px", "Arial", "#222222", 300, 100, false);
+            this._lvl3 = new objects.Label("Level 3", "35px", "Arial", "#222222", 300, 100, false);
             // this._coin = new objects.Coin();
             // this._island = new objects.Island();
             // instantiate the cloud array
@@ -887,6 +903,8 @@ var scenes;
             var _this = this;
             this._mira.Update();
             this._enemy1.Update();
+            this._enemy2.Update();
+            this._enemy3.Update();
             this._bulletManager.Update();
             // this._coin.x = this._island.x;
             // this._coin.y = this._island.y;
@@ -900,8 +918,43 @@ var scenes;
             // managers.Collision.Check(this._mira, cloud);
             // });
             managers.Collision.Check(this._mira, this._enemy1);
+            // managers.Collision.Check(this._mira, this._enemy3);
+            //if certain score is reached, next level instantiates
+            if (this._scoreBoard.Score == this.lvl2Score) {
+                // this.addChild(this._lvl2)
+                this.addChild(this._enemy2);
+                // setTimeout(function () { 
+                //   console.log("level change");
+                //   (this.removechild(this._lvl2))
+                // }, 100);
+            }
+            if (this._scoreBoard.Score == this.lvl3Score) {
+                // this.addChild(this._lvl3)
+                this.addChild(this._enemy3);
+                // setTimeout(function () { 
+                //   console.log("level change");
+                //   (this.removechild(this._lvl3))
+                // }, 100);
+            }
+            //checks collision for lvl2 enemy with mira
+            if (this._scoreBoard.Score >= this.lvl2Score) {
+                managers.Collision.Check(this._mira, this._enemy2);
+            }
+            //checks collision for lvl3 enemy with mira
+            if (this._scoreBoard.Score >= this.lvl3Score) {
+                managers.Collision.Check(this._mira, this._enemy3);
+            }
+            //check enemy collision with bullets
             this._bulletManager.Bullets.forEach(function (bullet) {
                 managers.Collision.Check(bullet, _this._enemy1);
+                //checks collision with enemy and bullet in lvl2
+                if (_this._scoreBoard.Score >= _this.lvl2Score) {
+                    managers.Collision.Check(bullet, _this._enemy2);
+                }
+                //checks collision with enemy and bullet in lvl3
+                if (_this._scoreBoard.Score >= _this.lvl3Score) {
+                    managers.Collision.Check(bullet, _this._enemy3);
+                }
             });
             // if lives fall below zero switch scenes to the game over scene
             if (this._scoreBoard.Lives <= 0) {
@@ -1122,7 +1175,7 @@ var scenes;
         { id: "startButton", src: "./Assets/images/ToddlerTroubleImages/Buttons/Play1.png" },
         { id: "nursery", src: "./Assets/images/ToddlerTroubleImages/Backgrounds/Nursery.png" },
         { id: "endScene", src: "./Assets/images/ToddlerTroubleImages/Backgrounds/endScene.png" },
-        { id: "logo", src: "./Assets/images/ToddlerTroubleImages/TodTroLogo.png" },
+        { id: "logo", src: "./Assets/images/ToddlerTroubleImages/TodTroLogo.png" }
     ];
     // preloads assets
     function Init() {
@@ -1261,6 +1314,75 @@ var objects;
         return Enemy1;
     }(objects.GameObject));
     objects.Enemy1 = Enemy1;
+})(objects || (objects = {}));
+var objects;
+(function (objects) {
+    var Enemy2 = /** @class */ (function (_super) {
+        __extends(Enemy2, _super);
+        // Constructor
+        function Enemy2() {
+            var _this = _super.call(this, "enemy2") || this;
+            _this.Start();
+            return _this;
+        }
+        // private methods
+        // public methods
+        // Initializes variables and creates new objects
+        Enemy2.prototype.Start = function () {
+            this._dy = 10;
+            this.Reset();
+        };
+        // updates the game object every frame
+        Enemy2.prototype.Update = function () {
+            this.Move();
+            this.CheckBounds();
+        };
+        // reset the objects location to some value
+        Enemy2.prototype.Reset = function () {
+            if (Math.random() < 0.25) {
+                this.x = Math.floor((Math.random() * (640 - this.width)) + this.halfWidth);
+                this.y = -0;
+            }
+            else if (Math.random() < 0.5) {
+                this.x = Math.floor((Math.random() * (640 - this.width)) + this.halfWidth);
+                this.y = 0;
+            }
+            else if (Math.random() < 0.75) {
+                this.y = Math.floor((Math.random() * (480 - this.height)) + this.halfWidth);
+                this.x = -0;
+            }
+            else {
+                this.y = Math.floor((Math.random() * (480 - this.width)) + this.halfWidth);
+                this.x = 0;
+            }
+            this.alpha = 0;
+            this.rotationRad = Math.atan2(managers.Game.mira.y - this.y, managers.Game.mira.x - this.x);
+            this.rotation = this.rotationRad * (180 / Math.PI);
+            console.log(this.rotation);
+        };
+        // move the object to some new location
+        Enemy2.prototype.Move = function () {
+            this.x += Math.cos(this.rotationRad) * 5;
+            this.y += Math.sin(this.rotationRad) * 5;
+        };
+        // check to see if some boundary has been passed
+        Enemy2.prototype.CheckBounds = function () {
+            // turn enemy back on when it appears on the screen
+            if ((this.y >= 0) && (this.alpha == 0)) {
+                this.alpha = 1;
+            }
+            // check x bounds
+            if (this.x >= 640 + this.width || this.x <= -this.width) {
+                this.Reset();
+            }
+            // check y bounds
+            if (this.y >= 480 + this.height || this.y <= -this.height) {
+                this.Reset();
+            }
+        };
+        return Enemy2;
+    }(objects.GameObject));
+    objects.Enemy2 = Enemy2;
 })(objects || (objects = {}));
 var objects;
 (function (objects) {

@@ -12,6 +12,13 @@ module scenes {
     private _engineSound: createjs.AbstractSoundInstance;
     // private _coin: objects.Coin;
     private _enemy1: objects.Enemy1;
+    private _enemy2: objects.Enemy1;
+    private _enemy3: objects.Enemy2;
+    private _lvl2:objects.Label;
+    private _lvl3:objects.Label;  
+    private lvl2Score: number = 2000;      
+    private lvl3Score: number = 3000;  
+
 
     // Public Properties
 
@@ -34,6 +41,7 @@ module scenes {
       this._nursery.scaleX = 640 / this._nursery.getBounds().width;
       this._nursery.scaleY = 480 / this._nursery.getBounds().height;
 
+      //mira
       this._mira = new objects.Mira();
       managers.Game.mira = this._mira;
 
@@ -41,8 +49,14 @@ module scenes {
       this._bulletManager = new managers.Bullet();
       managers.Game.bulletManger = this._bulletManager;
 
-      // create an enemy object
+      // create enemy objects
       this._enemy1 = new objects.Enemy1();
+      this._enemy2 = new objects.Enemy1();
+      this._enemy3 = new objects.Enemy2();
+
+      this._lvl2 = new objects.Label("Level 2", "35px", "Arial", "#222222", 300, 100, false);
+      this._lvl3 = new objects.Label("Level 3", "35px", "Arial", "#222222", 300, 100, false);      
+            
 
       // this._coin = new objects.Coin();
       // this._island = new objects.Island();
@@ -73,6 +87,9 @@ module scenes {
       this._mira.Update();
 
       this._enemy1.Update();
+      this._enemy2.Update();
+      this._enemy3.Update();
+
 
       this._bulletManager.Update();
 
@@ -92,10 +109,53 @@ module scenes {
       // });
 
       managers.Collision.Check(this._mira, this._enemy1);
+      // managers.Collision.Check(this._mira, this._enemy3);
 
+      //if certain score is reached, next level instantiates
+      if (this._scoreBoard.Score == this.lvl2Score) {
+        // this.addChild(this._lvl2)
+        this.addChild(this._enemy2);
+        // setTimeout(function () { 
+        //   console.log("level change");
+        //   (this.removechild(this._lvl2))
+        // }, 100);
+      }
 
+      if (this._scoreBoard.Score == this.lvl3Score) {
+        // this.addChild(this._lvl3)
+        this.addChild(this._enemy3);
+        // setTimeout(function () { 
+        //   console.log("level change");
+        //   (this.removechild(this._lvl3))
+        // }, 100);
+      }
+      
+      //checks collision for lvl2 enemy with mira
+      if (this._scoreBoard.Score >= this.lvl2Score) {
+        managers.Collision.Check(this._mira, this._enemy2);
+      }
+      
+      //checks collision for lvl3 enemy with mira
+      if (this._scoreBoard.Score >= this.lvl3Score) {
+        managers.Collision.Check(this._mira, this._enemy3);
+      }
+
+      //check enemy collision with bullets
       this._bulletManager.Bullets.forEach(bullet => {
         managers.Collision.Check(bullet, this._enemy1);
+
+        //checks collision with enemy and bullet in lvl2
+        if (this._scoreBoard.Score >= this.lvl2Score) {
+          managers.Collision.Check(bullet, this._enemy2);
+  
+        }
+
+        //checks collision with enemy and bullet in lvl3
+        if (this._scoreBoard.Score >= this.lvl3Score) {
+          managers.Collision.Check(bullet, this._enemy3);
+  
+        }
+
       });
 
       // if lives fall below zero switch scenes to the game over scene
@@ -143,10 +203,10 @@ module scenes {
       this.addChild(this._scoreBoard.ScoreLabel);
 
       //click to fire
-      this._nursery.addEventListener("click", function(event) { 
-        managers.Game.keyboardManager.fire = true; 
-        setTimeout(function(){(managers.Game.keyboardManager.fire = false)}, 150);
-         
+      this._nursery.addEventListener("click", function (event) {
+        managers.Game.keyboardManager.fire = true;
+        setTimeout(function () { (managers.Game.keyboardManager.fire = false) }, 150);
+
       });
     }
   }

@@ -107,7 +107,12 @@
     { id: "bubble", src: "./Assets/images/ToddlerTroubleImages/Ammo/bubble.png" }, 
     { id: "enemy1", src: "./Assets/images/ToddlerTroubleImages/Characters/AniBaby1.png" },   
     { id: "enemy2", src: "./Assets/images/ToddlerTroubleImages/Characters/AniBaby2.png" },   
-    { id: "cupcake", src: "./Assets/images/ToddlerTroubleImages/cupcake.png" }   
+    { id: "cupcake", src: "./Assets/images/ToddlerTroubleImages/cupcake.png" },
+    { id: "startButton", src: "./Assets/images/ToddlerTroubleImages/Buttons/Play1.png" },
+    { id: "nursery", src: "./Assets/images/ToddlerTroubleImages/Backgrounds/Nursery.png" },
+    { id: "logo", src: "./Assets/images/ToddlerTroubleImages/TodTroLogo.png" },
+    
+    
   ];
 
   // preloads assets

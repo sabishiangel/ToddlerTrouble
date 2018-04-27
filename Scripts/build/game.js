@@ -121,7 +121,9 @@ var objects;
         __extends(GameObject, _super);
         // constructors
         function GameObject(imageString) {
-            var _this = _super.call(this, managers.Game.textureAtlas, imageString) || this;
+            var _this = 
+            // super(managers.Game.textureAtlas, imageString);
+            _super.call(this, managers.Game.assetManager.getResult(imageString)) || this;
             _this.name = imageString;
             _this._initialize();
             return _this;
@@ -148,7 +150,7 @@ var objects;
         GameObject.prototype.Move = function () {
         };
         return GameObject;
-    }(createjs.Sprite));
+    }(createjs.Bitmap));
     objects.GameObject = GameObject;
 })(objects || (objects = {}));
 var objects;
@@ -364,9 +366,9 @@ var managers;
                                 explosion.x = object1.x;
                                 explosion.y = object1.y;
                                 managers.Game.currentSceneObject.addChild(explosion);
-                                object1.alpha = 0; // make the plane object invisible
-                                managers.Game.plane.planeFlash.alpha = 1;
-                                managers.Game.plane.planeFlash.gotoAndPlay("planeflash");
+                                // object1.alpha = 0; // make the plane object invisible
+                                // managers.Game.plane.planeFlash.alpha = 1;
+                                // managers.Game.plane.planeFlash.gotoAndPlay("planeflash");
                             }
                             break;
                         case "enemy":
@@ -930,18 +932,22 @@ var scenes;
         // Public Methods
         // Initialize Game Variables and objects
         StartScene.prototype.Start = function () {
-            this._ocean = new objects.Ocean();
-            this._welcomeLabel = new objects.Label("Mail Pilot", "60px", "Dock51", "#FFFF00", 320, 240, true);
-            this._startButton = new objects.Button("startButton", 320, 340);
+            this._nursery = new createjs.Bitmap(managers.Game.assetManager.getResult("nursery"));
+            this._nursery.scaleX = 640 / this._nursery.getBounds().width;
+            this._nursery.scaleY = 480 / this._nursery.getBounds().height;
+            this._welcomeLabel = new objects.GameObject("logo");
+            this._welcomeLabel.x = 320;
+            this._welcomeLabel.y = 180;
+            this._startButton = new objects.Button("startButton", 320, 360);
             this.Main();
         };
         StartScene.prototype.Update = function () {
-            this._ocean.Update();
+            // this._ocean.Update();
         };
         // This is where the fun happens
         StartScene.prototype.Main = function () {
             // add the ocean object
-            this.addChild(this._ocean);
+            this.addChild(this._nursery);
             // add the welcome label to the scene
             this.addChild(this._welcomeLabel);
             // add the startButton to the scene
@@ -1078,7 +1084,10 @@ var scenes;
         { id: "bubble", src: "./Assets/images/ToddlerTroubleImages/Ammo/bubble.png" },
         { id: "enemy1", src: "./Assets/images/ToddlerTroubleImages/Characters/AniBaby1.png" },
         { id: "enemy2", src: "./Assets/images/ToddlerTroubleImages/Characters/AniBaby2.png" },
-        { id: "cupcake", src: "./Assets/images/ToddlerTroubleImages/cupcake.png" }
+        { id: "cupcake", src: "./Assets/images/ToddlerTroubleImages/cupcake.png" },
+        { id: "startButton", src: "./Assets/images/ToddlerTroubleImages/Buttons/Play1.png" },
+        { id: "nursery", src: "./Assets/images/ToddlerTroubleImages/Backgrounds/Nursery.png" },
+        { id: "logo", src: "./Assets/images/ToddlerTroubleImages/TodTroLogo.png" },
     ];
     // preloads assets
     function Init() {

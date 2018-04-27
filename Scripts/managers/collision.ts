@@ -38,9 +38,9 @@ module managers {
                 explosion.x = object1.x;
                 explosion.y = object1.y;
                 managers.Game.currentSceneObject.addChild(explosion);
-                object1.alpha = 0; // make the plane object invisible
-                managers.Game.plane.planeFlash.alpha = 1;
-                managers.Game.plane.planeFlash.gotoAndPlay("planeflash");
+                // object1.alpha = 0; // make the plane object invisible
+                // managers.Game.plane.planeFlash.alpha = 1;
+                // managers.Game.plane.planeFlash.gotoAndPlay("planeflash");
               }
               break;
             case "enemy":

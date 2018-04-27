@@ -285,9 +285,9 @@ var managers;
         });
         // private methods
         ScoreBoard.prototype._initialize = function () {
-            this.LivesLabel = new objects.Label("Lives: 0", "20px", "Dock51", "#FFFF00", 10, 10, false);
-            this.ScoreLabel = new objects.Label("Score: 99999", "20px", "Dock51", "#FFFF00", 500, 10, false);
-            this.HighScoreLabel = new objects.Label("High Score: 99999", "40px", "Dock51", "#FFFF00", 320, 240, true);
+            this.LivesLabel = new objects.Label("Lives: 0", "32px", "Arial", "#222222", 20, 50, false);
+            this.ScoreLabel = new objects.Label("Score: 99999", "32px", "Arial", "#222222", 480, 50, false);
+            this.HighScoreLabel = new objects.Label("High Score: 99999", "40px", "Arial", "#222222", 320, 240, true);
             this.Lives = 5;
             this.Score = 0;
             this.HighScore = 0;
@@ -474,11 +474,9 @@ var objects;
 (function (objects) {
     var Bullet = /** @class */ (function (_super) {
         __extends(Bullet, _super);
-        // private instance variables
-        // public properties
         // constructors
         function Bullet() {
-            var _this = _super.call(this, "bullet") || this;
+            var _this = _super.call(this, "bubble") || this;
             _this.Start();
             return _this;
         }
@@ -486,7 +484,7 @@ var objects;
         // public methods
         Bullet.prototype.Start = function () {
             this._dx = 0;
-            this._dy = -10;
+            this._dy = 0;
             this.Reset();
         };
         Bullet.prototype.Update = function () {
@@ -503,7 +501,8 @@ var objects;
             }
         };
         Bullet.prototype.Move = function () {
-            this.y += this._dy;
+            this.x += Math.cos(this.rotation) * 10;
+            this.y += Math.sin(this.rotation) * 10;
         };
         return Bullet;
     }(objects.GameObject));
@@ -834,23 +833,25 @@ var scenes;
         // Public Methods
         // Initialize Game Variables and objects
         PlayScene.prototype.Start = function () {
-            this._ocean = new objects.Ocean();
-            this._plane = new objects.Plane();
-            managers.Game.plane = this._plane;
+            this._nursery = new createjs.Bitmap(managers.Game.assetManager.getResult("nursery"));
+            this._nursery.scaleX = 640 / this._nursery.getBounds().width;
+            this._nursery.scaleY = 480 / this._nursery.getBounds().height;
+            this._mira = new objects.Mira();
+            managers.Game.mira = this._mira;
             // make a reference to the bullet manager in the game manager
             this._bulletManager = new managers.Bullet();
             managers.Game.bulletManger = this._bulletManager;
             // create an enemy object
-            this._enemy = new objects.Enemy();
-            this._coin = new objects.Coin();
-            this._island = new objects.Island();
+            this._enemy1 = new objects.Enemy1();
+            // this._coin = new objects.Coin();
+            // this._island = new objects.Island();
             // instantiate the cloud array
-            this._clouds = new Array();
-            this._cloudNum = 2;
+            // this._clouds = new Array<objects.Cloud>();
+            // this._cloudNum = 2;
             // loop and add each cloud to the array
-            for (var count = 0; count < this._cloudNum; count++) {
-                this._clouds[count] = new objects.Cloud();
-            }
+            // for (let count = 0; count < this._cloudNum; count++) {
+            // this._clouds[count] = new objects.Cloud();
+            // }
             this._engineSound = createjs.Sound.play("gameMusic");
             this._engineSound.loop = -1; // play forever
             this._engineSound.volume = 0.3;
@@ -863,23 +864,22 @@ var scenes;
         PlayScene.prototype.Update = function () {
             //console.log("Num Objects: " + this.numChildren);
             var _this = this;
-            this._ocean.Update();
-            this._plane.Update();
-            this._enemy.Update();
+            this._mira.Update();
+            this._enemy1.Update();
             this._bulletManager.Update();
-            this._coin.x = this._island.x;
-            this._coin.y = this._island.y;
-            this._coin.Update();
-            this._island.Update();
+            // this._coin.x = this._island.x;
+            // this._coin.y = this._island.y;
+            // this._coin.Update();
+            // this._island.Update();
             // check collision between plane and coin
-            managers.Collision.Check(this._plane, this._coin);
-            this._clouds.forEach(function (cloud) {
-                cloud.Update();
-                // check collision between plane and current cloud
-                managers.Collision.Check(_this._plane, cloud);
-            });
+            // managers.Collision.Check(this._mira, this._coin);
+            // this._clouds.forEach(cloud => {
+            // cloud.Update();
+            // check collision between plane and current cloud
+            // managers.Collision.Check(this._mira, cloud);
+            // });
             this._bulletManager.Bullets.forEach(function (bullet) {
-                managers.Collision.Check(bullet, _this._enemy);
+                managers.Collision.Check(bullet, _this._enemy1);
             });
             // if lives fall below zero switch scenes to the game over scene
             if (this._scoreBoard.Lives <= 0) {
@@ -891,24 +891,23 @@ var scenes;
         PlayScene.prototype.Main = function () {
             var _this = this;
             // add the ocean to the scene
-            this.addChild(this._ocean);
+            this.addChild(this._nursery);
             // add the island to the scene
-            this.addChild(this._island);
+            // this.addChild(this._island);
             // add the coin to the scene
-            this.addChild(this._coin);
+            // this.addChild(this._coin);
             // add the plane to the scene
-            this.addChild(this._plane);
-            this.addChild(this._plane.planeFlash); // add the plane flashing effect
+            this.addChild(this._mira);
             // add the enemy plane to the scene
-            this.addChild(this._enemy);
+            this.addChild(this._enemy1);
             // add the bullets to the scene
             this._bulletManager.Bullets.forEach(function (bullet) {
                 _this.addChild(bullet);
             });
             // add clouds to the scene
-            this._clouds.forEach(function (cloud) {
-                _this.addChild(cloud);
-            });
+            // this._clouds.forEach(cloud => {
+            // this.addChild(cloud);
+            // });
             // add scoreboard labels to the scene
             this.addChild(this._scoreBoard.LivesLabel);
             this.addChild(this._scoreBoard.ScoreLabel);
@@ -1099,6 +1098,13 @@ var scenes;
         assetManager.installPlugin(createjs.Sound); // asset manager can also load sounds
         assetManager.loadManifest(assetManifest);
         assetManager.on("complete", Start, this);
+        document.onmousemove = getMousePos;
+    }
+    function getMousePos(event) {
+        if (event.pageX != null && event.clientX != null) {
+            managers.Game.mouseX = event.clientX - canvas.scrollLeft + window.pageXOffset;
+            managers.Game.mouseY = event.clientY - canvas.scrollTop + window.pageYOffset;
+        }
     }
     function InitStats() {
         stats = new Stats();
@@ -1154,4 +1160,149 @@ var scenes;
     }
     window.onload = Init;
 })();
+var objects;
+(function (objects) {
+    var Enemy1 = /** @class */ (function (_super) {
+        __extends(Enemy1, _super);
+        // private instance variables
+        // public properties
+        // Constructor
+        function Enemy1() {
+            var _this = _super.call(this, "enemy1") || this;
+            _this.Start();
+            return _this;
+        }
+        // private methods
+        // public methods
+        // Initializes variables and creates new objects
+        Enemy1.prototype.Start = function () {
+            this._dy = 10;
+            this.Reset();
+        };
+        // updates the game object every frame
+        Enemy1.prototype.Update = function () {
+            this.Move();
+            this.CheckBounds();
+        };
+        // reset the objects location to some value
+        Enemy1.prototype.Reset = function () {
+            this.x = Math.floor((Math.random() * (640 - this.width)) + this.halfWidth);
+            this.y = -480;
+            this.alpha = 0;
+        };
+        // move the object to some new location
+        Enemy1.prototype.Move = function () {
+            this.y += this._dy;
+        };
+        // check to see if some boundary has been passed
+        Enemy1.prototype.CheckBounds = function () {
+            // turn enemy back on when it appears on the screen
+            if ((this.y >= 0) && (this.alpha == 0)) {
+                this.alpha = 1;
+            }
+            // check lower bounds
+            if (this.y >= 480 + this.height) {
+                this.Reset();
+            }
+        };
+        return Enemy1;
+    }(objects.GameObject));
+    objects.Enemy1 = Enemy1;
+})(objects || (objects = {}));
+var objects;
+(function (objects) {
+    var Mira = /** @class */ (function (_super) {
+        __extends(Mira, _super);
+        // public properties
+        // Constructor
+        function Mira() {
+            var _this = _super.call(this, "mira") || this;
+            _this.Start();
+            return _this;
+        }
+        // private methods
+        // public methods
+        // Initializes variables and creates new objects
+        Mira.prototype.Start = function () {
+            this.x = 320;
+            this.y = 430;
+            this._bulletSpawn = new math.Vec2();
+        };
+        // updates the game object every frame
+        Mira.prototype.Update = function () {
+            this.Move();
+            this.RotateTowardCursor();
+            this.CheckBounds();
+            this.BulletFire();
+        };
+        // reset the objects location to some value
+        Mira.prototype.Reset = function () {
+        };
+        // move the object to some new location
+        Mira.prototype.Move = function () {
+            // mouse controls
+            // this.x = objects.Game.stage.mouseX;
+            // keyboard controls
+            if (managers.Game.keyboardManager.moveLeft) {
+                this.x -= 5;
+            }
+            if (managers.Game.keyboardManager.moveRight) {
+                this.x += 5;
+            }
+            if (managers.Game.keyboardManager.moveForward) {
+                this.y -= 5;
+            }
+            if (managers.Game.keyboardManager.moveBackward) {
+                this.y += 5;
+            }
+        };
+        Mira.prototype.RotateTowardCursor = function () {
+            var rotationRad = Math.atan2(managers.Game.mouseY - this.y, managers.Game.mouseX - this.x);
+            this.rotation = rotationRad * (180 / Math.PI) - 90;
+        };
+        // check to see if some boundary has been passed
+        Mira.prototype.CheckBounds = function () {
+            // right boundary
+            if (this.x >= 640 - this.halfWidth) {
+                this.x = 640 - this.halfWidth;
+            }
+            // left boundary
+            if (this.x <= this.halfWidth) {
+                this.x = this.halfWidth;
+            }
+            // right boundary
+            if (this.y >= 480 - this.halfHeight) {
+                this.y = 480 - this.halfHeight;
+            }
+            // left boundary
+            if (this.y <= this.halfHeight) {
+                this.y = this.halfHeight;
+            }
+        };
+        Mira.prototype.BulletFire = function () {
+            // check if Plane is "alive"
+            if (this.alpha = 1) {
+                var ticker = createjs.Ticker.getTicks();
+                if ((managers.Game.keyboardManager.fire) && (ticker % 10 == 0)) {
+                    var rotationRad = Math.atan2(managers.Game.mouseY - this.y, managers.Game.mouseX - this.x);
+                    var spawnX = Math.cos(rotationRad) * 50;
+                    var spawnY = Math.sin(rotationRad) * 50;
+                    this._bulletSpawn = new math.Vec2(this.x + spawnX, this.y + spawnY);
+                    var currentBullet = managers.Game.bulletManger.CurrentBullet;
+                    var bullet = managers.Game.bulletManger.Bullets[currentBullet];
+                    bullet.x = this._bulletSpawn.x;
+                    bullet.y = this._bulletSpawn.y;
+                    bullet.rotation = rotationRad;
+                    managers.Game.bulletManger.CurrentBullet++;
+                    if (managers.Game.bulletManger.CurrentBullet > 49) {
+                        managers.Game.bulletManger.CurrentBullet = 0;
+                    }
+                    createjs.Sound.play("bubbleSound");
+                }
+            }
+        };
+        return Mira;
+    }(objects.GameObject));
+    objects.Mira = Mira;
+})(objects || (objects = {}));
 //# sourceMappingURL=game.js.map

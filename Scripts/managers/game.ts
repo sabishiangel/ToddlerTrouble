@@ -9,6 +9,11 @@ module managers {
     public static HighScore: number = 0;
     public static textureAtlas: createjs.SpriteSheet;
     public static plane: objects.Plane;
+    public static mira: objects.Mira;
+    
     public static bulletManger: managers.Bullet;
+
+    public static mouseX: number;
+    public static mouseY: number;
   }
 }

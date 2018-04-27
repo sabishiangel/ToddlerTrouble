@@ -3,10 +3,11 @@ module objects {
     // private instance variables
 
     // public properties
+    public rotation;
 
     // constructors
     constructor() {
-      super("bullet");
+      super("bubble");
       this.Start();
     }
 
@@ -15,7 +16,7 @@ module objects {
     // public methods
     public Start(): void {
       this._dx = 0;
-      this._dy = -10;
+      this._dy = 0;
       this.Reset();
     }
 
@@ -36,7 +37,8 @@ module objects {
     }
 
     public Move():void {
-      this.y += this._dy;
+      this.x += Math.cos(this.rotation) * 10;
+      this.y += Math.sin(this.rotation) * 10;
     }
   }
 }

@@ -16,6 +16,7 @@
   let textureAtlasData: any;
   let textureAtlas: createjs.SpriteSheet;
   let stats: Stats;
+  
 
   textureAtlasData = {
 
@@ -122,6 +123,15 @@
     assetManager.installPlugin(createjs.Sound); // asset manager can also load sounds
     assetManager.loadManifest(assetManifest);
     assetManager.on("complete", Start, this);
+    document.onmousemove = getMousePos;
+    
+  }
+
+  function getMousePos(event) {
+    if (event.pageX != null && event.clientX != null) {
+      managers.Game.mouseX = event.clientX - canvas.scrollLeft + window.pageXOffset;
+      managers.Game.mouseY = event.clientY - canvas.scrollTop + window.pageYOffset;
+    }
   }
 
   function InitStats(): void {

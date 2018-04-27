@@ -6,7 +6,7 @@ module objects {
 
     // constructors
     constructor() {
-      super("bullet");
+      super("bubble");
       this.Start();
     }
 

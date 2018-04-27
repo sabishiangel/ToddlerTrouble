@@ -16,7 +16,7 @@
   let textureAtlasData: any;
   let textureAtlas: createjs.SpriteSheet;
   let stats: Stats;
-  
+
 
   textureAtlasData = {
 
@@ -62,36 +62,36 @@
       [104, 748, 32, 32, 0, 0, 0],
       [138, 748, 32, 32, 0, 0, 0],
       [2, 782, 200, 60, 0, 0, 0]
-  ],
+    ],
 
-  "animations": {
-    "bullet": { "frames": [0] },
-    "cloud": { "frames": [1] },
-    "coin": {
-      "frames": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      "speed": 0.33
-    },
-    "enemy": {
-      "frames": [12, 13, 14],
-      "speed": 0.25
-    },
-    "explosion": {
-      "frames": [15, 16, 17, 18, 19, 20, 21],
-      "speed": 0.16
-    },
-    "island": { "frames": [22] },
-    "plane": { "frames": [23, 24, 25] },
-    "planeflash": {
-      "frames": [26, 27, 26, 27, 26, 27],
-      "speed": 0.08
-    },
-    "restartButton": { "frames": [28] },
-    "smallexplosion": {
-      "frames": [29, 30, 31, 32, 33, 34],
-      "speed": 0.16
-    },
-    "startButton": { "frames": [35] }
-}
+    "animations": {
+      "bullet": { "frames": [0] },
+      "cloud": { "frames": [1] },
+      "coin": {
+        "frames": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+        "speed": 0.33
+      },
+      "enemy": {
+        "frames": [12, 13, 14],
+        "speed": 0.25
+      },
+      "explosion": {
+        "frames": [15, 16, 17, 18, 19, 20, 21],
+        "speed": 0.16
+      },
+      "island": { "frames": [22] },
+      "plane": { "frames": [23, 24, 25] },
+      "planeflash": {
+        "frames": [26, 27, 26, 27, 26, 27],
+        "speed": 0.08
+      },
+      "restartButton": { "frames": [28] },
+      "smallexplosion": {
+        "frames": [29, 30, 31, 32, 33, 34],
+        "speed": 0.16
+      },
+      "startButton": { "frames": [35] }
+    }
 
   };
 
@@ -103,19 +103,19 @@
     { id: "life", src: "./Assets/audio/life.wav" },
     { id: "explosion", src: "./Assets/audio/explosion.mp3" },
     { id: "bubbleSound", src: "./Assets/audio/ToddlerTroubleAudio/bubbleShot.mp3" },
-    { id: "mira", src: "./Assets/images/ToddlerTroubleImages/Characters/MiraTop.png" }, 
+    { id: "mira", src: "./Assets/images/ToddlerTroubleImages/Characters/MiraTop.png" },
     { id: "restartBtn", src: "./Assets/images/ToddlerTroubleImages/Buttons/Try1.png" },
     { id: "mainBtn", src: "./Assets/images/ToddlerTroubleImages/Buttons/Main1.png" },
-    { id: "bubble", src: "./Assets/images/ToddlerTroubleImages/Ammo/bubble.png" }, 
-    { id: "enemy1", src: "./Assets/images/ToddlerTroubleImages/Characters/AniBaby1.png" },   
-    { id: "enemy2", src: "./Assets/images/ToddlerTroubleImages/Characters/AniBaby2.png" },   
+    { id: "bubble", src: "./Assets/images/ToddlerTroubleImages/Ammo/bubble.png" },
+    { id: "enemy1", src: "./Assets/images/ToddlerTroubleImages/Characters/AniBaby1.png" },
+    { id: "enemy2", src: "./Assets/images/ToddlerTroubleImages/Characters/AniBaby2.png" },
     { id: "cupcake", src: "./Assets/images/ToddlerTroubleImages/cupcake.png" },
     { id: "startButton", src: "./Assets/images/ToddlerTroubleImages/Buttons/Play1.png" },
     { id: "nursery", src: "./Assets/images/ToddlerTroubleImages/Backgrounds/Nursery.png" },
     { id: "endScene", src: "./Assets/images/ToddlerTroubleImages/Backgrounds/endScene.png" },
     { id: "logo", src: "./Assets/images/ToddlerTroubleImages/TodTroLogo.png" },
-    
-    
+
+
   ];
 
   // preloads assets
@@ -126,7 +126,7 @@
     assetManager.loadManifest(assetManifest);
     assetManager.on("complete", Start, this);
     document.onmousemove = getMousePos;
-    
+
   }
 
   function getMousePos(event) {
@@ -138,8 +138,8 @@
 
   function InitStats(): void {
     stats = new Stats();
-    stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
-    document.body.appendChild( stats.dom );
+    stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+    document.body.appendChild(stats.dom);
   }
 
   function Start(): void {
@@ -194,6 +194,12 @@
         break;
       case config.Scene.OVER:
         currentScene = new scenes.OverScene();
+        break;
+      case config.Scene.LVL2:
+        currentScene = new scenes.PlayScene2();
+        break;
+      case config.Scene.LVL3:
+        currentScene = new scenes.PlayScene3();
         break;
     }
 

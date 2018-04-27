@@ -29,25 +29,34 @@ module managers {
                 createjs.Sound.play("explosion");
                 managers.Game.scoreBoard.Lives -= 1;
 
-                let explosion = new objects.Explosion("explosion");
-                explosion.x = object1.x;
-                explosion.y = object1.y;
-                managers.Game.Object.addChild(explosion);
+                // let explosion = new objects.Explosion("explosion");
+                // explosion.x = object1.x;
+                // explosion.y = object1.y;
+                // managers.Game.Object.addChild(explosion);
                 // object1.alpha = 0; // make the plane object invisible
                 // managers.Game.plane.planeFlash.alpha = 1;
                 // managers.Game.plane.planeFlash.gotoAndPlay("planeflash");
               }
               break;
-            case "enemy":
-              if (object2.alpha != 0) {
-                createjs.Sound.play("explosion");
-                let explosion = new objects.Explosion("explosion");
-                explosion.x = object2.x;
-                explosion.y = object2.y;
-                managers.Game.currentSceneObject.addChild(explosion);
-                managers.Game.scoreBoard.Score += 200;
-                object2.Reset();
-              }
+            case "enemy2":
+            if (object1.name == "bubble") {
+              createjs.Sound.play("explosion");
+              // let explosion = new objects.Explosion("explosion");
+              // explosion.x = object2.x;
+              // explosion.y = object2.y;
+              // managers.Game.currentSceneObject.addChild(explosion);
+              managers.Game.scoreBoard.Score += 200;
+              object2.Reset();
+            }
+            else if (object1.name == "mira") {
+              createjs.Sound.play("explosion");
+              // let explosion = new objects.Explosion("explosion");
+              // explosion.x = object2.x;
+              // explosion.y = object2.y;
+              // managers.Game.currentSceneObject.addChild(explosion);
+              managers.Game.scoreBoard.Lives -= 2;
+              object2.Reset();
+            }
               break;
             case "enemy1":
               if (object1.name == "bubble") {

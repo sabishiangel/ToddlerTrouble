@@ -1,5 +1,5 @@
 module scenes {
-  export class PlayScene extends objects.Scene {
+  export class PlayScene2 extends objects.Scene {
     // Private Instance Variables
     private _nursery: createjs.Bitmap;
     private _mira: objects.Mira;
@@ -9,9 +9,11 @@ module scenes {
     private _scoreBoard: managers.ScoreBoard;
     private _bulletManager: managers.Bullet;
     private _labelLevel:objects.Label;
+
     private _engineSound: createjs.AbstractSoundInstance;
     // private _coin: objects.Coin;
     private _enemy1: objects.Enemy1;
+    private _enemy2: objects.Enemy1;
 
     // Public Properties
 
@@ -33,7 +35,7 @@ module scenes {
       this._nursery = new createjs.Bitmap(managers.Game.assetManager.getResult("nursery"));
       this._nursery.scaleX = 640 / this._nursery.getBounds().width;
       this._nursery.scaleY = 480 / this._nursery.getBounds().height;
-      this._labelLevel = new objects.Label("Level 1", "32px", "Arial", "#FF0000", 250, 50, false);
+      this._labelLevel = new objects.Label("Level 2", "32px", "Arial", "#FF0000", 250, 50, false);
 
       this._mira = new objects.Mira();
       managers.Game.mira = this._mira;
@@ -44,6 +46,8 @@ module scenes {
 
       // create an enemy object
       this._enemy1 = new objects.Enemy1();
+      this._enemy2 = new objects.Enemy1();
+      
 
       // this._coin = new objects.Coin();
       // this._island = new objects.Island();
@@ -62,7 +66,7 @@ module scenes {
 
       // create the scoreboard UI for the Scene
       this._scoreBoard = new managers.ScoreBoard();
-      managers.Game.scoreBoard = this._scoreBoard;
+      this._scoreBoard = managers.Game.scoreBoard;
 
       this.Main();
     }
@@ -74,12 +78,13 @@ module scenes {
       this._mira.Update();
 
       this._enemy1.Update();
+      this._enemy2.Update();
+      
 
       this._bulletManager.Update();
 
-      if(this._scoreBoard.Score == 2000){
-        managers.Game.currentScene = config.Scene.LVL2;
-        console.log("switch to lvl 2");
+      if(this._scoreBoard.Score == 4000){
+        managers.Game.currentScene = config.Scene.LVL3;
       }
 
       // this._coin.x = this._island.x;
@@ -98,10 +103,13 @@ module scenes {
       // });
 
       managers.Collision.Check(this._mira, this._enemy1);
+      managers.Collision.Check(this._mira, this._enemy2);
 
 
       this._bulletManager.Bullets.forEach(bullet => {
         managers.Collision.Check(bullet, this._enemy1);
+        managers.Collision.Check(bullet, this._enemy2);
+        
       });
 
       // if lives fall below zero switch scenes to the game over scene
@@ -132,9 +140,10 @@ module scenes {
 
       // add the enemy plane to the scene
       this.addChild(this._enemy1);
+      this.addChild(this._enemy2);
 
-      //add level label to scene
       this.addChild(this._labelLevel);
+      
 
       // add the bullets to the scene
       this._bulletManager.Bullets.forEach(bullet => {

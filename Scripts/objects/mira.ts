@@ -93,11 +93,15 @@ module objects {
       if (this.alpha = 1) {
         let ticker: number = createjs.Ticker.getTicks();
         if ((managers.Game.keyboardManager.fire) && (ticker % 10 == 0)) {
-          this._bulletSpawn = new math.Vec2(this.x, this.y - this.halfHeight);
+          let rotationRad = Math.atan2(managers.Game.mouseY  - this.y, managers.Game.mouseX - this.x);
+          let spawnX = Math.cos(rotationRad) * 50;
+          let spawnY = Math.sin(rotationRad) * 50;
+          this._bulletSpawn = new math.Vec2(this.x + spawnX, this.y + spawnY);
           let currentBullet = managers.Game.bulletManger.CurrentBullet;
           let bullet = managers.Game.bulletManger.Bullets[currentBullet];
           bullet.x = this._bulletSpawn.x;
           bullet.y = this._bulletSpawn.y;
+          bullet.rotation = rotationRad;
           managers.Game.bulletManger.CurrentBullet++;
           if (managers.Game.bulletManger.CurrentBullet > 49) {
             managers.Game.bulletManger.CurrentBullet = 0;

@@ -474,8 +474,6 @@ var objects;
 (function (objects) {
     var Bullet = /** @class */ (function (_super) {
         __extends(Bullet, _super);
-        // private instance variables
-        // public properties
         // constructors
         function Bullet() {
             var _this = _super.call(this, "bubble") || this;
@@ -486,7 +484,7 @@ var objects;
         // public methods
         Bullet.prototype.Start = function () {
             this._dx = 0;
-            this._dy = -10;
+            this._dy = 0;
             this.Reset();
         };
         Bullet.prototype.Update = function () {
@@ -503,7 +501,8 @@ var objects;
             }
         };
         Bullet.prototype.Move = function () {
-            this.y += this._dy;
+            this.x += Math.cos(this.rotation) * 10;
+            this.y += Math.sin(this.rotation) * 10;
         };
         return Bullet;
     }(objects.GameObject));
@@ -1282,11 +1281,15 @@ var objects;
             if (this.alpha = 1) {
                 var ticker = createjs.Ticker.getTicks();
                 if ((managers.Game.keyboardManager.fire) && (ticker % 10 == 0)) {
-                    this._bulletSpawn = new math.Vec2(this.x, this.y - this.halfHeight);
+                    var rotationRad = Math.atan2(managers.Game.mouseY - this.y, managers.Game.mouseX - this.x);
+                    var spawnX = Math.cos(rotationRad) * 50;
+                    var spawnY = Math.sin(rotationRad) * 50;
+                    this._bulletSpawn = new math.Vec2(this.x + spawnX, this.y + spawnY);
                     var currentBullet = managers.Game.bulletManger.CurrentBullet;
                     var bullet = managers.Game.bulletManger.Bullets[currentBullet];
                     bullet.x = this._bulletSpawn.x;
                     bullet.y = this._bulletSpawn.y;
+                    bullet.rotation = rotationRad;
                     managers.Game.bulletManger.CurrentBullet++;
                     if (managers.Game.bulletManger.CurrentBullet > 49) {
                         managers.Game.bulletManger.CurrentBullet = 0;

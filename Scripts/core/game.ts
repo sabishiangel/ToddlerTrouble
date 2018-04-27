@@ -111,6 +111,7 @@
     { id: "cupcake", src: "./Assets/images/ToddlerTroubleImages/cupcake.png" },
     { id: "startButton", src: "./Assets/images/ToddlerTroubleImages/Buttons/Play1.png" },
     { id: "nursery", src: "./Assets/images/ToddlerTroubleImages/Backgrounds/Nursery.png" },
+    { id: "endScene", src: "./Assets/images/ToddlerTroubleImages/Backgrounds/endScene.png" },
     { id: "logo", src: "./Assets/images/ToddlerTroubleImages/TodTroLogo.png" },
     
     

@@ -27,12 +27,11 @@ module scenes {
 
     // Initialize Game Variables and objects
     public Start(): void {
-      //this._ocean = new objects.Ocean();
+      
       this._loseScreen = new createjs.Bitmap(managers.Game.assetManager.getResult("endScene"));
       this._loseScreen.scaleX = 640 / this._loseScreen.getBounds().width;
       this._loseScreen.scaleY = 480 / this._loseScreen.getBounds().height;
-      this._overLabel = new objects.Label("Game Over", "60px", "Dock51", "#FFFF00", 320, 140, true);
-      this._restartButton = new objects.Button("restartBtn", 320, 340);
+      this._restartButton = new objects.Button("restartBtn", 320, 400);
       this._scoreboard = new managers.ScoreBoard();
 
       this.Main();

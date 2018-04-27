@@ -287,7 +287,7 @@ var managers;
         ScoreBoard.prototype._initialize = function () {
             this.LivesLabel = new objects.Label("Lives: 0", "32px", "Arial", "#222222", 20, 50, false);
             this.ScoreLabel = new objects.Label("Score: 99999", "32px", "Arial", "#222222", 480, 50, false);
-            this.HighScoreLabel = new objects.Label("High Score: 99999", "40px", "Arial", "#222222", 320, 240, true);
+            this.HighScoreLabel = new objects.Label("High Score: 99999", "40px", "Arial", "#222222", 500, 100, true);
             this.Lives = 5;
             this.Score = 0;
             this.HighScore = 0;
@@ -808,12 +808,10 @@ var scenes;
         // Public Methods
         // Initialize Game Variables and objects
         OverScene.prototype.Start = function () {
-            //this._ocean = new objects.Ocean();
             this._loseScreen = new createjs.Bitmap(managers.Game.assetManager.getResult("endScene"));
             this._loseScreen.scaleX = 640 / this._loseScreen.getBounds().width;
             this._loseScreen.scaleY = 480 / this._loseScreen.getBounds().height;
-            this._overLabel = new objects.Label("Game Over", "60px", "Dock51", "#FFFF00", 320, 140, true);
-            this._restartButton = new objects.Button("restartBtn", 320, 340);
+            this._restartButton = new objects.Button("restartBtn", 320, 400);
             this._scoreboard = new managers.ScoreBoard();
             this.Main();
         };
@@ -1110,6 +1108,7 @@ var scenes;
         { id: "cupcake", src: "./Assets/images/ToddlerTroubleImages/cupcake.png" },
         { id: "startButton", src: "./Assets/images/ToddlerTroubleImages/Buttons/Play1.png" },
         { id: "nursery", src: "./Assets/images/ToddlerTroubleImages/Backgrounds/Nursery.png" },
+        { id: "endScene", src: "./Assets/images/ToddlerTroubleImages/Backgrounds/endScene.png" },
         { id: "logo", src: "./Assets/images/ToddlerTroubleImages/TodTroLogo.png" },
     ];
     // preloads assets

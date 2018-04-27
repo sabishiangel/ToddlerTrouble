@@ -501,8 +501,8 @@ var objects;
             }
         };
         Bullet.prototype.Move = function () {
-            this.x += Math.cos(this.rotation) * 10;
-            this.y += Math.sin(this.rotation) * 10;
+            this.x += Math.cos(this.rotationRad) * 10;
+            this.y += Math.sin(this.rotationRad) * 10;
         };
         return Bullet;
     }(objects.GameObject));
@@ -1161,8 +1161,6 @@ var objects;
 (function (objects) {
     var Enemy1 = /** @class */ (function (_super) {
         __extends(Enemy1, _super);
-        // private instance variables
-        // public properties
         // Constructor
         function Enemy1() {
             var _this = _super.call(this, "enemy1") || this;
@@ -1183,13 +1181,31 @@ var objects;
         };
         // reset the objects location to some value
         Enemy1.prototype.Reset = function () {
-            this.x = Math.floor((Math.random() * (640 - this.width)) + this.halfWidth);
-            this.y = -480;
+            if (Math.random() < 0.25) {
+                this.x = Math.floor((Math.random() * (640 - this.width)) + this.halfWidth);
+                this.y = -0;
+            }
+            else if (Math.random() < 0.5) {
+                this.x = Math.floor((Math.random() * (640 - this.width)) + this.halfWidth);
+                this.y = 0;
+            }
+            else if (Math.random() < 0.75) {
+                this.y = Math.floor((Math.random() * (480 - this.height)) + this.halfWidth);
+                this.x = -0;
+            }
+            else {
+                this.y = Math.floor((Math.random() * (480 - this.width)) + this.halfWidth);
+                this.x = 0;
+            }
             this.alpha = 0;
+            this.rotationRad = Math.atan2(managers.Game.mira.y - this.y, managers.Game.mira.x - this.x);
+            this.rotation = this.rotationRad * (180 / Math.PI);
+            console.log(this.rotation);
         };
         // move the object to some new location
         Enemy1.prototype.Move = function () {
-            this.y += this._dy;
+            this.x += Math.cos(this.rotationRad) * 5;
+            this.y += Math.sin(this.rotationRad) * 5;
         };
         // check to see if some boundary has been passed
         Enemy1.prototype.CheckBounds = function () {
@@ -1197,8 +1213,12 @@ var objects;
             if ((this.y >= 0) && (this.alpha == 0)) {
                 this.alpha = 1;
             }
-            // check lower bounds
-            if (this.y >= 480 + this.height) {
+            // check x bounds
+            if (this.x >= 640 + this.width || this.x <= -this.width) {
+                this.Reset();
+            }
+            // check y bounds
+            if (this.y >= 480 + this.height || this.y <= -this.height) {
                 this.Reset();
             }
         };
@@ -1255,7 +1275,7 @@ var objects;
         };
         Mira.prototype.RotateTowardCursor = function () {
             var rotationRad = Math.atan2(managers.Game.mouseY - this.y, managers.Game.mouseX - this.x);
-            this.rotation = rotationRad * (180 / Math.PI) - 90;
+            this.rotation = rotationRad * (180 / Math.PI);
         };
         // check to see if some boundary has been passed
         Mira.prototype.CheckBounds = function () {
@@ -1289,7 +1309,7 @@ var objects;
                     var bullet = managers.Game.bulletManger.Bullets[currentBullet];
                     bullet.x = this._bulletSpawn.x;
                     bullet.y = this._bulletSpawn.y;
-                    bullet.rotation = rotationRad;
+                    bullet.rotationRad = rotationRad;
                     managers.Game.bulletManger.CurrentBullet++;
                     if (managers.Game.bulletManger.CurrentBullet > 49) {
                         managers.Game.bulletManger.CurrentBullet = 0;

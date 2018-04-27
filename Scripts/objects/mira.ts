@@ -62,7 +62,7 @@ module objects {
 
     public RotateTowardCursor() {
       let rotationRad = Math.atan2(managers.Game.mouseY  - this.y, managers.Game.mouseX - this.x);
-      this.rotation = rotationRad * (180 / Math.PI) - 90;
+      this.rotation = rotationRad * (180 / Math.PI);
     }
 
     // check to see if some boundary has been passed
@@ -101,7 +101,7 @@ module objects {
           let bullet = managers.Game.bulletManger.Bullets[currentBullet];
           bullet.x = this._bulletSpawn.x;
           bullet.y = this._bulletSpawn.y;
-          bullet.rotation = rotationRad;
+          bullet.rotationRad = rotationRad;
           managers.Game.bulletManger.CurrentBullet++;
           if (managers.Game.bulletManger.CurrentBullet > 49) {
             managers.Game.bulletManger.CurrentBullet = 0;

@@ -36,7 +36,7 @@ module scenes {
       this._welcomeLabel.x = 320;
       this._welcomeLabel.y = 90;
 
-      this._instructions = new objects.Label("Using the arrow keys to move and the mouse \n to aim (click to shoot, or use the spacebar), \ndo your job and calm those babies!", "20px", "Arial", "#222222", 700, 200, true)
+      this._instructions = new objects.Label("Using the arrow keys to move and the mouse \n to aim (click to shoot, or use the spacebar), \ndo your job and calm those babies!", "20px", "Cheri", "#222222", 700, 200, true)
       
 
       this._startButton = new objects.Button("back", 100, 400);

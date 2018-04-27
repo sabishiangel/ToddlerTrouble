@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "asea": "lite-server"
+    "start": "lite-server"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "preloadjs": "^1.0.1",
     "soundjs": "^1.0.1",
     "stats.js": "^0.17.0",
-    "tweenjs": "^1.0.2"
+    "tweenjs": "^1.0.2",
+    "lite-server": "^2.3.0"
   }
 }

@@ -22,11 +22,6 @@ module managers {
                   managers.Game.scoreBoard.Lives += 1;
                   createjs.Sound.play("life");
                 }
-
-                if (managers.Game.HighScore <= managers.Game.scoreBoard.Score) {
-                  managers.Game.scoreBoard.HighScore = managers.Game.scoreBoard.Score;
-                  managers.Game.HighScore = managers.Game.scoreBoard.HighScore;
-                }
               }
               break;
             case "cloud":
@@ -37,7 +32,7 @@ module managers {
                 let explosion = new objects.Explosion("explosion");
                 explosion.x = object1.x;
                 explosion.y = object1.y;
-                managers.Game.currentSceneObject.addChild(explosion);
+                managers.Game.Object.addChild(explosion);
                 // object1.alpha = 0; // make the plane object invisible
                 // managers.Game.plane.planeFlash.alpha = 1;
                 // managers.Game.plane.planeFlash.gotoAndPlay("planeflash");

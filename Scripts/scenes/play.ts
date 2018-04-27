@@ -101,6 +101,10 @@ module scenes {
       // if lives fall below zero switch scenes to the game over scene
       if (this._scoreBoard.Lives <= 0) {
         this._engineSound.stop();
+        if (managers.Game.HighScore <= managers.Game.scoreBoard.Score) {
+          managers.Game.scoreBoard.HighScore = managers.Game.scoreBoard.Score;
+          managers.Game.HighScore = managers.Game.scoreBoard.HighScore;
+        }
         managers.Game.currentScene = config.Scene.OVER;
       }
 
